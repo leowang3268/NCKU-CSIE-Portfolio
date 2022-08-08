@@ -1,7 +1,8 @@
 ## 2019-intro_to_cs-GSR_measure
 
 ## Video Link
-https://www.youtube.com/watch?v=wy5UCEYYnJU&feature=youtu.be
+https://www.youtube.com/watch?v=wy5UCEYYnJU
+P.S. Demo正片位於2:18，前面為老師要求製作的創意片段，達到類似廣告吸引注意力的效果
 
 ## Details
 這是大一上計算機概論的小組project。
