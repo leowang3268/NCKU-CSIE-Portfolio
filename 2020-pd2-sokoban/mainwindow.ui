@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>427</width>
+    <height>332</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>427</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuChooseLevel">
+    <property name="title">
+     <string>Level</string>
+    </property>
+    <addaction name="actionChoose_Level"/>
+   </widget>
+   <widget class="QMenu" name="menuSokoban">
+    <property name="title">
+     <string>Game</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionStart_Game"/>
+    <addaction name="actionRestart"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <addaction name="menuSokoban"/>
+   <addaction name="menuChooseLevel"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionChoose_Level">
+   <property name="text">
+    <string>Choose Level</string>
+   </property>
+  </action>
+  <action name="actionStart_Game">
+   <property name="text">
+    <string>Start Game</string>
+   </property>
+  </action>
+  <action name="actionRestart">
+   <property name="text">
+    <string>Restart Game</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string> Quit Game</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

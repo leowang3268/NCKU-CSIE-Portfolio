@@ -1,0 +1,42 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+
+#include <QMainWindow>
+#include <QLabel>
+#include <QLCDNumber>
+#include <QPushButton>
+
+
+
+namespace Ui {
+class MainWindow;
+}
+
+
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+    static void createMenu();
+    static void createAction();
+    static void createMap();
+
+
+public:
+    explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
+private slots:
+    void restartGameSlot();
+   /* void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked(); */
+
+private:
+    Ui::MainWindow *ui;
+};
+
+#endif // MAINWINDOW_H

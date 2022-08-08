@@ -1,0 +1,83 @@
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    setWindowTitle("Sokoban");
+    createMenu();
+    createAction();
+    QWidget *widget = new QWidget;
+    setCentralWidget(widget);
+    QLabel *levelLabel = new QLabel(QStringLiteral("Current Level"));
+    QLabel *stepLabel = new QLabel(QStringLiteral("Current Steps"));
+    QLCDNumber *levelLCD = new QLCDNumber;
+    QLCDNumber *stepLCD = new QLCDNumber;
+    QPushButton *restartButton = new QPushButton;
+    connect(restartButton, SIGNAL(clicked()), this, SLOT(restartGameSlot()));
+    restartButton->setEnabled(false);
+    QVBoxLayout *rightLayout = new QVBoxLayout;
+    rightLayout->addWidget(levelLabel);
+    rightLayout->addWidget(levelLCD);
+    rightLayout->addWidget(stepLabel);
+    rightLayout->addWidget(stepLCD);
+    rightLayout->addWidget(restartButton);
+    mappaint mainmap = new mappaint;
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->addWidget(mainmap);
+    mainLayout->addLayout(rightLayout);
+    widget->setLayout(mainLayout);
+    mainmap->levelNow=0;
+    mainmap->stepNow=0;
+    mainmap->man_x=0;
+    mainmap->man_y=0;
+    mainmap->BeginOrEnd=1;
+    mainmap->update();
+    int boxNum = 0;
+    levelLCD->display(mainmap->levelNow);
+    stepLCD->display(mainmap->stepNow);
+    createMap();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void createMenu()
+{
+    QAction *startGameAction = new QAction(QStringLiteral("开始游戏"),this);
+    startGameAction->setShortcut(QKeySequence("Ctrl+S"));
+    startGameAction->setStatusTip(QStringLiteral("开始一场新游戏."));
+    connect(startGameAction,SIGNAL(triggered()),this,SLOT(startGameSlot()));
+    restartGameAction = new QAction(QStringLiteral("重新开始"),this);
+    restartGameAction->setShortcut(QKeySequence("Ctrl+R"));
+    restartGameAction->setStatusTip(QStringLiteral("重新开始本局."));
+    restartGameAction->setEnabled(false);
+    connect(restartGameAction,SIGNAL(triggered()),this,SLOT(restartGameSlot()));
+    endGameAction = new QAction(QStringLiteral("结束游戏"),this);  endGameAction->setShortcut(QKeySequence("Ctrl+E"));
+    endGameAction->setStatusTip(QStringLiteral("结束当前游戏."));
+    endGameAction->setEnabled(false);
+    connect(endGameAction,SIGNAL(triggered()),this,SLOT(endGameSlot()));
+}
+
+mappaint::mappaint(QWidget *parent) :
+
+/*
+void MainWindow::on_pushButton_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(close()));
+}
+*/
