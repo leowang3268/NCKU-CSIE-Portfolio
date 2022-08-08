@@ -1,6 +1,6 @@
 ## 2019-intro_to_cs-GSR_measure
 
-##Video Link
+## Video Link
 https://www.youtube.com/watch?v=wy5UCEYYnJU&feature=youtu.be
 
 ## Details
