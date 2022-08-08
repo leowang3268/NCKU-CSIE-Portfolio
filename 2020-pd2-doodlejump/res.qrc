@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>star.jpeg</file>
+        <file>background.jpeg</file>
+        <file>ufo.jpeg</file>
+        <file>monster.jpeg</file>
+        <file>runningplatform.jpeg</file>
+        <file>normalplatform.jpeg</file>
+        <file>spring.jpeg</file>
+        <file>bullet.png</file>
+        <file>doodle.png</file>
+    </qresource>
+    <qresource prefix="/sounds">
+        <file>bgm.mp3</file>
+        <file>bulletsound.mp3</file>
+        <file>springsound.mp3</file>
+        <file>bulletboom.mp3</file>
+        <file>doodlegetstar.mp3</file>
+        <file>doodlejumpsound.mp3</file>
+        <file>gameover.mp3</file>
+    </qresource>
+</RCC>
