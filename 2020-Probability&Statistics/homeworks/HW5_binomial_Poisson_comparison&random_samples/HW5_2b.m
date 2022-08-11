@@ -1,0 +1,1 @@
+GenerateSample(10000);
