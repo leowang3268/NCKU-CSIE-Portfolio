@@ -1,0 +1,20 @@
+D:\Users\User\Desktop\Game Design\Mario\Mario\obj\Debug\Mario.csprojAssemblyReference.cache
+D:\Users\User\Desktop\Game Design\Mario\Mario\obj\Debug\Mario.Form1.resources
+D:\Users\User\Desktop\Game Design\Mario\Mario\obj\Debug\Mario.Properties.Resources.resources
+D:\Users\User\Desktop\Game Design\Mario\Mario\obj\Debug\Mario.csproj.GenerateResource.cache
+D:\Users\User\Desktop\Game Design\Mario\Mario\obj\Debug\Mario.csproj.CoreCompileInputs.cache
+D:\Users\User\Desktop\Game Design\Mario\Mario\bin\Debug\Mario.exe.config
+D:\Users\User\Desktop\Game Design\Mario\Mario\bin\Debug\Mario.exe
+D:\Users\User\Desktop\Game Design\Mario\Mario\bin\Debug\Mario.pdb
+D:\Users\User\Desktop\Game Design\Mario\Mario\obj\Debug\Mario.exe
+D:\Users\User\Desktop\Game Design\Mario\Mario\obj\Debug\Mario.pdb
+D:\Users\User\Desktop\Extracurricular\Game Design\Mario (Broken)\Mario\bin\Debug\Mario.exe.config
+D:\Users\User\Desktop\Extracurricular\Game Design\Mario (Broken)\Mario\bin\Debug\Mario.exe
+D:\Users\User\Desktop\Extracurricular\Game Design\Mario (Broken)\Mario\bin\Debug\Mario.pdb
+D:\Users\User\Desktop\Extracurricular\Game Design\Mario (Broken)\Mario\obj\Debug\Mario.csprojAssemblyReference.cache
+D:\Users\User\Desktop\Extracurricular\Game Design\Mario (Broken)\Mario\obj\Debug\Mario.Form1.resources
+D:\Users\User\Desktop\Extracurricular\Game Design\Mario (Broken)\Mario\obj\Debug\Mario.Properties.Resources.resources
+D:\Users\User\Desktop\Extracurricular\Game Design\Mario (Broken)\Mario\obj\Debug\Mario.csproj.GenerateResource.cache
+D:\Users\User\Desktop\Extracurricular\Game Design\Mario (Broken)\Mario\obj\Debug\Mario.csproj.CoreCompileInputs.cache
+D:\Users\User\Desktop\Extracurricular\Game Design\Mario (Broken)\Mario\obj\Debug\Mario.exe
+D:\Users\User\Desktop\Extracurricular\Game Design\Mario (Broken)\Mario\obj\Debug\Mario.pdb
