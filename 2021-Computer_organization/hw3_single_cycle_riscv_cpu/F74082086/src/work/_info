@@ -1,0 +1,96 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA
+vCPU
+Z0 !s110 1621266732
+!i10b 1
+!s100 TA?W29ZnebISV8:G7O[OT3
+Iom=A?X=[;@V[nd<H:N[Z01
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dD:/Users/User/Desktop/Computer Organization/hw3_single_cycle_riscv_cpu/F74082086/src
+w1621265713
+8CPU.v
+FCPU.v
+L0 2
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1621266732.000000
+Z5 !s107 SRAM.v|CPU.v|D:/Users/User/Desktop/Computer Organization/hw3_single_cycle_riscv_cpu/F74082086/src/top.v|
+Z6 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/User/Desktop/Computer Organization/hw3_single_cycle_riscv_cpu/F74082086/src/top.v|
+!i113 1
+Z7 o-work work
+Z8 tCvgOpt 0
+n@c@p@u
+vSRAM
+R0
+!i10b 1
+!s100 098NVJ5G7cQKQ54o@ikSC1
+IDmHCFmUJjIlfJ45QEo4;^3
+R1
+R2
+Z9 w1613988061
+8SRAM.v
+FSRAM.v
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+R8
+n@s@r@a@m
+vtop
+R0
+!i10b 1
+!s100 3nA]>>K_ENC>4H3_H3T@Y0
+I0DZNc]EO<TDR5NJ`91F=?1
+R1
+R2
+R9
+8D:/Users/User/Desktop/Computer Organization/hw3_single_cycle_riscv_cpu/F74082086/src/top.v
+FD:/Users/User/Desktop/Computer Organization/hw3_single_cycle_riscv_cpu/F74082086/src/top.v
+L0 6
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+R8
+vtop_tb
+!s110 1621266733
+!i10b 1
+!s100 G>0gzeVZEW0Al_bIBMz=R3
+I?De@hRAJAbOz7A6`I@<3P0
+R1
+R2
+w1621266718
+8D:/Users/User/Desktop/Computer Organization/hw3_single_cycle_riscv_cpu/F74082086/src/top_tb.v
+FD:/Users/User/Desktop/Computer Organization/hw3_single_cycle_riscv_cpu/F74082086/src/top_tb.v
+L0 14
+R3
+r1
+!s85 0
+31
+!s108 1621266733.000000
+!s107 D:/Users/User/Desktop/Computer Organization/hw3_single_cycle_riscv_cpu/F74082086/src/top_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/User/Desktop/Computer Organization/hw3_single_cycle_riscv_cpu/F74082086/src/top_tb.v|
+!i113 1
+R7
+R8
