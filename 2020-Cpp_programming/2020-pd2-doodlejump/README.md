@@ -1,7 +1,4 @@
 # 2020-pd2-DoodleJump
 
-## Video link
-## How to play
-## Requirements
-## Polymorphism
-## Bonus
+## Details
+This is the third homework of c++ programming course. We need to fulfill the basic functions of doodle jump.
