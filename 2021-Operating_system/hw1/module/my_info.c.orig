@@ -1,0 +1,264 @@
+    #include <linux/kernel.h> /* We're doing kernel work */
+    #include <linux/module.h> /* Specifically, a module */
+    #include <linux/proc_fs.h> /* Necessary because we use proc fs */
+    #include <linux/seq_file.h> /* for seq_file */
+    
+    #include <generated/utsrelease.h>
+
+    #include <linux/fs.h>
+    #include <linux/init.h>
+    #include <linux/smp.h>
+    #include <linux/timex.h>
+    #include <linux/string.h>
+    #include <stdbool.h>
+
+    #include <linux/mm.h>
+    #include <linux/hugetlb.h>
+    #include <linux/mman.h>
+    #include <linux/mmzone.h>
+    #include <linux/quicklist.h>
+    #include <linux/swap.h>
+    #include <linux/vmstat.h>
+    #include <linux/atomic.h>
+    #include <linux/vmalloc.h>
+    #ifdef CONFIG_CMA
+    #include <linux/cma.h>
+    #endif
+    #include <asm/page.h>
+    #include <asm/pgtable.h>
+   
+    //#include "internal.h"
+    
+    #include <linux/sched.h>
+    #include <linux/time.h>
+    #include <linux/kernel_stat.h>
+
+    #define PROC_NAME "my_info"
+
+    /**
+    * This function is called at the beginning of a sequence.
+    * ie, when:
+    * 1.the /proc file is read (first time)
+    * 2.after the function stop (end of sequence)
+    *
+    */ 
+    static void *my_seq_start(struct seq_file *s, loff_t *pos) 
+    { 
+        *pos = cpumask_next(*pos - 1, cpu_online_mask);
+        if ((*pos) < nr_cpu_ids)
+            return &cpu_data(*pos);
+        return NULL;
+    } 
+
+    /**
+    * This function is called after the beginning of a sequence.
+    * It's called untill the return is NULL (end of the sequence).
+    *
+    */ 
+    static void *my_seq_next(struct seq_file *s, void *v, loff_t *pos) 
+    { 
+        ++*pos;
+        return my_seq_start(s, pos);
+    } 
+
+    /**
+    * This function is called at the end of a sequence
+    *
+    */ 
+    static void my_seq_stop(struct seq_file *s, void *v) 
+    { 
+        /* nothing to do, we use a static value in start() */ 
+    } 
+
+    void __attribute__((weak)) arch_report_meminfo(struct seq_file *m)
+    {
+    }
+
+    /**
+    * This function is called when printing memory-related info 
+    * (The function is extrate from Linux version 5.15)
+    */
+    static void show_val_kb(struct seq_file *m, const char *s, unsigned long num)
+    {
+        seq_put_decimal_ull(m, s, num << (PAGE_SHIFT - 10));
+	    seq_write(m, " kB\n", 4);
+    }
+    
+    /**
+    * This function is called for each "step" of a sequence
+    *
+    */ 
+    static int my_seq_show(struct seq_file *m, void *v)
+    {
+        /* declare which cpu is it first */
+        struct cpuinfo_x86 *c = v;
+        unsigned int cpu;
+        int i;        
+
+        cpu = c->cpu_index;
+    
+        /* show version info */
+        if (cpu == 0) {
+            seq_puts(m, "\n=============Version=============\n");
+            seq_printf(m, "Linux version %s\n", UTS_RELEASE);
+        }
+
+        /* show cpu info */
+        if (cpu == 0)
+            seq_puts(m, "\n=============CPU=============\n");
+        seq_printf(m, "processor\t: %u\n"
+                      "model name\t: %s\n",
+                       cpu,
+                       c->x86_model_id[0] ? c->x86_model_id : "unknown");
+
+        seq_printf(m, "physical id\t: %d\n", c->phys_proc_id);
+        seq_printf(m, "core id\t\t: %d\n", c->cpu_core_id);
+        seq_printf(m, "cpu cores\t: %d\n", c->booted_cores);
+
+        if (c->x86_cache_size)
+            seq_printf(m, "cache size\t: %u KB\n", c->x86_cache_size);
+
+        seq_printf(m, "clflush size\t: %u\n", c->x86_clflush_size);
+        seq_printf(m, "cache_alignment\t: %d\n", c->x86_cache_alignment);
+        seq_printf(m, "address sizes\t: %u bits physical, %u bits virtual\n",
+                        c->x86_phys_bits, c->x86_virt_bits);
+
+        seq_puts(m, "\n");
+
+        if (cpu < 3)
+            return 0;
+
+        /* show memory info */
+        seq_puts(m, "\n=============Memory=============\n");
+        struct sysinfo j;
+	    unsigned long committed;
+	    long cached;
+	    long available;
+	    unsigned long pages[NR_LRU_LISTS];
+	    int lru;
+
+	    si_meminfo(&j);
+
+	    for (lru = LRU_BASE; lru < NR_LRU_LISTS; lru++)
+		    pages[lru] = global_node_page_state(NR_LRU_BASE + lru);
+
+	    available = si_mem_available();
+
+        show_val_kb(m, "MemTotal        : ", j.totalram);
+	    show_val_kb(m, "MemFree         : ", j.freeram);
+	    show_val_kb(m, "Buffers         : ", j.bufferram);
+	    show_val_kb(m, "Active          : ", pages[LRU_ACTIVE_ANON] +
+	    				   pages[LRU_ACTIVE_FILE]);
+	    show_val_kb(m, "Inactive        : ", pages[LRU_INACTIVE_ANON] +
+	    				   pages[LRU_INACTIVE_FILE]);
+        show_val_kb(m, "Shmem           : ", j.sharedram);
+        show_val_kb(m, "Dirty           : ",
+            global_node_page_state(NR_FILE_DIRTY));
+        show_val_kb(m, "Writeback       : ",
+		    global_node_page_state(NR_WRITEBACK));  
+        seq_printf(m, "KernelStack     : %5lu kB\n",
+		   global_zone_page_state(NR_KERNEL_STACK_KB));
+        show_val_kb(m, "PageTables      : ",
+		    global_zone_page_state(NR_PAGETABLE));
+    
+	    arch_report_meminfo(m);
+
+        seq_printf(m, "\n");
+
+        /* show time info */
+        seq_puts(m, "\n=============Time=============\n");
+	    struct timespec uptime;
+	    struct timespec idle;
+	    u64 nsec;
+	    u32 rem;
+        int k;
+
+	    nsec = 0;
+	    for_each_possible_cpu(k)
+		    nsec += (__force u64) kcpustat_cpu(i).cpustat[CPUTIME_IDLE];
+
+	    get_monotonic_boottime(&uptime);
+	    idle.tv_sec = div_u64_rem(nsec, NSEC_PER_SEC, &rem);
+	    idle.tv_nsec = rem;
+	    seq_printf(m, "Uptime          : %lu.%02lu (s)\n"
+                      "Idletime        : %lu.%02lu (s)\n",
+			            (unsigned long) uptime.tv_sec,
+			            (uptime.tv_nsec / (NSEC_PER_SEC / 100)),
+			            (unsigned long) idle.tv_sec,
+			            (idle.tv_nsec / (NSEC_PER_SEC / 100)));
+        	    
+        seq_printf(m, "\n\n\n\n");
+
+        return 0;
+    }
+    
+    /**
+    * This structure gathers functions to manage the sequence
+    * 
+    */
+    static struct seq_operations my_seq_ops = { 
+        .start = my_seq_start,
+        .next = my_seq_next,
+        .stop = my_seq_stop,
+        .show = my_seq_show 
+    };
+
+    __weak void arch_freq_prepare_all(void)
+    {
+    }
+
+    /**
+    * This function is called when the /proc file is open.
+    *
+    */ 
+    static int my_open(struct inode *inode, struct file *file) 
+    { 
+        arch_freq_prepare_all();
+        return seq_open(file, &my_seq_ops);
+    }
+    
+    /**
+    * This structure gathers functions that manage the /proc file
+    *
+    */  
+    static struct file_operations my_file_ops = { 
+        .owner = THIS_MODULE,
+        .open = my_open,
+        .read = seq_read,
+        .llseek = seq_lseek,
+        .release = seq_release 
+    };
+    
+    struct proc_dir_entry *my_proc_file;
+    
+    /**
+    * This function is called when the module is loaded
+    *
+    */ 
+    static int __init my_info_init(void) 
+    { 
+        my_proc_file = proc_create(PROC_NAME, 0, NULL, &my_file_ops);
+        if (my_proc_file == NULL) { 
+            proc_remove(my_proc_file);
+            pr_alert("Error: Could not initialize /proc/%s\n", PROC_NAME);
+            return -ENOMEM; 
+        } 
+        pr_info("/proc/%s created\n", PROC_NAME);
+        return 0;
+    } 
+
+    /**
+    * This function is called when the module is unloaded.
+    *
+    */ 
+    static void __exit my_info_exit(void) 
+    { 
+        proc_remove(my_proc_file);
+        pr_info("/proc/%s removed\n", PROC_NAME);
+    } 
+     
+    module_init(my_info_init);
+    module_exit(my_info_exit);
+
+    MODULE_DESCRIPTION("Module that show the information of ");
+    MODULE_LICENSE("GPL");
