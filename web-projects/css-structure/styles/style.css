@@ -1,0 +1,33 @@
+h1 {
+    color: blue;
+    background-color: yellow;
+    border: 1px solid black;
+  }
+  
+  p {
+    color: black;
+  }
+
+  a:link {
+      color: green;
+  }
+
+  .manythings {
+    font-size: 1.2em;
+  }
+  #onething {
+    font-weight: bold;
+  }
+  * {
+      font-family: 'Times New Roman', Times, serif;
+  }
+  .box p {
+    text-align: right;
+  }
+  .box p:first-child {
+    text-align: center;
+  }
+  h2, .intro
+  {
+    border: 1.2px solid grey;
+  }
